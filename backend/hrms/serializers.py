@@ -22,7 +22,7 @@ class CreateUserSerializer(serializers.Serializer):
     occupation = serializers.CharField()
     pan = serializers.CharField()
     aadhar = serializers.CharField()
-    role = serializers.ChoiceField(choices=['ceo', 'md'])
+    role = serializers.ChoiceField(choices=['ceo', 'md', 'hr', 'finance', 'marketing', 'it', 'admin', 'manager', 'tl'])
 
     def validate(self, data):
         if data['password'] != data['confirm_password']:

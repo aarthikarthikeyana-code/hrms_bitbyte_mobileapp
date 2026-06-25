@@ -5,6 +5,13 @@ import 'dart:convert';
 import 'package:hrms_mobileapp_bitbyte/Screens/Dashboard/superadmin_dashborad.dart';
 import 'package:hrms_mobileapp_bitbyte/Screens/Dashboard/CEO_dashborad.dart';
 import 'package:hrms_mobileapp_bitbyte/Screens/Dashboard/MD_dashborad.dart';
+import 'package:hrms_mobileapp_bitbyte/Screens/Dashboard/HR_dadhborad.dart';
+import 'package:hrms_mobileapp_bitbyte/Screens/Dashboard/Finance_dashborad.dart';
+import 'package:hrms_mobileapp_bitbyte/Screens/Dashboard/Admin_dashborad.dart';
+import 'package:hrms_mobileapp_bitbyte/Screens/Dashboard/ITTeam_dashborad.dart';
+import 'package:hrms_mobileapp_bitbyte/Screens/Dashboard/Manager-dashborad.dart';
+import 'package:hrms_mobileapp_bitbyte/Screens/Dashboard/MarketingTeam_dashborad.dart';
+import 'package:hrms_mobileapp_bitbyte/Screens/Dashboard/TL_dashborad.dart';
 import 'boom_in_widget.dart';
 import 'constellation_background.dart';
 import 'logo_widget.dart';
@@ -70,9 +77,23 @@ class _LoginScreenState extends State<LoginScreen> {
       firstName: data['first_name'] ?? '',
       userId: data['user_id'] ?? '',
     );
-  } else {
-    dashboard = SuperAdminDashboard(email: data['email']);
-  }
+  } else if (role == 'hr') {
+  dashboard = HrDashboard(email: data['email'], firstName: data['first_name'] ?? '', userId: data['user_id'] ?? '');
+} else if (role == 'finance') {
+  dashboard = FinanceDashboard(email: data['email'], firstName: data['first_name'] ?? '', userId: data['user_id'] ?? '');
+} else if (role == 'admin') {
+  dashboard = AdminDashboard(email: data['email'], firstName: data['first_name'] ?? '', userId: data['user_id'] ?? '');
+} else if (role == 'it') {
+  dashboard = ITTeamDashboard(email: data['email'], firstName: data['first_name'] ?? '', userId: data['user_id'] ?? '');
+} else if (role == 'manager') {
+  dashboard = ManagerDashboard(email: data['email'], firstName: data['first_name'] ?? '', userId: data['user_id'] ?? '');
+} else if (role == 'marketing') {
+  dashboard = MarketingTeamDashboard(email: data['email'], firstName: data['first_name'] ?? '', userId: data['user_id'] ?? '');
+} else if (role == 'tl') {
+  dashboard = TLDashboard(email: data['email'], firstName: data['first_name'] ?? '', userId: data['user_id'] ?? '');
+} else {
+  dashboard = SuperAdminDashboard(email: data['email']);
+}
 
  Navigator.of(context).pushAndRemoveUntil(
     PageRouteBuilder(

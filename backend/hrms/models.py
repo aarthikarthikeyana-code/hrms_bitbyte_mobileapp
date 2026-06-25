@@ -10,11 +10,17 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser):
     ROLE_CHOICES = [
-        ('superadmin', 'Super Admin'),
-        ('ceo', 'CEO'),
-        ('md', 'MD'),
-        ('employee', 'Employee'),
-    ]
+    ('superadmin', 'Super Admin'),
+    ('ceo', 'CEO'),
+    ('md', 'MD'),
+    ('hr', 'HR'),
+    ('finance', 'Finance'),
+    ('marketing', 'Marketing Team'),
+    ('it', 'IT Team'),
+    ('admin', 'Admin'),
+    ('manager', 'Manager'),
+    ('tl', 'TL'),
+]
 
     GENDER_CHOICES = [('male', 'Male'), ('female', 'Female'), ('other', 'Other')]
 

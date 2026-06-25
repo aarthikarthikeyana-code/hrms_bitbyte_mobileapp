@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hrms_mobileapp_bitbyte/main.dart';
 import 'package:hrms_mobileapp_bitbyte/Screens/StartUp-Screens/theme_config.dart';
 import 'package:hrms_mobileapp_bitbyte/Screens/StartUp-Screens/constellation_background.dart';
+import 'package:hrms_mobileapp_bitbyte/Screens/CEO/create_admins.dart';
 
 class CeoDashboard extends StatefulWidget {
   final String email;
@@ -208,13 +209,23 @@ class _CeoDashboardState extends State<CeoDashboard> {
             const SizedBox(height: 10),
             Expanded(
               child: ListView(
-                children: _menuItems.map((item) {
-                  return ListTile(
-                    leading: Icon(item['icon'], color: ThemeConfig.blueAccent),
-                    title: Text(item['label'], style: TextStyle(color: textPrimary, fontWeight: FontWeight.w500)),
-                    onTap: () => Navigator.pop(context),
-                  );
-                }).toList(),
+                children: [
+  ..._menuItems.map((item) {
+    return ListTile(
+      leading: Icon(item['icon'], color: ThemeConfig.blueAccent),
+      title: Text(item['label'], style: TextStyle(color: textPrimary, fontWeight: FontWeight.w500)),
+      onTap: () => Navigator.pop(context),
+    );
+  }).toList(),
+  ListTile(
+    leading: Icon(Icons.person_add_rounded, color: ThemeConfig.blueAccent),
+    title: Text('Create Team Member', style: TextStyle(color: textPrimary, fontWeight: FontWeight.w500)),
+    onTap: () {
+      Navigator.pop(context);
+      Navigator.push(context, MaterialPageRoute(builder: (_) => const CeoCreateAdminsPage()));
+    },
+  ),
+],
               ),
             ),
             const Divider(),
