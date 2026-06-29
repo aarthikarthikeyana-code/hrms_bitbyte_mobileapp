@@ -13,9 +13,13 @@ import 'package:hrms_mobileapp_bitbyte/Screens/Dashboard/Manager-dashborad.dart'
 import 'package:hrms_mobileapp_bitbyte/Screens/Dashboard/MarketingTeam_dashborad.dart';
 import 'package:hrms_mobileapp_bitbyte/Screens/Dashboard/TL_dashborad.dart';
 import 'boom_in_widget.dart';
+import 'register_screen.dart';
 import 'constellation_background.dart';
 import 'logo_widget.dart';
 import 'theme_config.dart';
+import 'Change_Password.dart';
+import 'package:hrms_mobileapp_bitbyte/Screens/Dashboard/Employee_dashborad.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -61,6 +65,17 @@ class _LoginScreenState extends State<LoginScreen> {
     final data = jsonDecode(response.body);
 
     if (data['success'] == true) {
+  // OTC first login check
+  if (data['requires_password_change'] == true) {
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (_) => ChangePasswordScreen(
+        employeeId: data['user_id'] ?? '',
+        otc: _passwordController.text,
+      )),
+      (route) => false,
+    );
+    return;
+  }
   final role = data['role'];
   Widget dashboard;
   if (role == 'superadmin') {
@@ -91,6 +106,12 @@ class _LoginScreenState extends State<LoginScreen> {
   dashboard = MarketingTeamDashboard(email: data['email'], firstName: data['first_name'] ?? '', userId: data['user_id'] ?? '');
 } else if (role == 'tl') {
   dashboard = TLDashboard(email: data['email'], firstName: data['first_name'] ?? '', userId: data['user_id'] ?? '');
+} else if (role == 'employee') {
+  dashboard = EmployeeDashboard(
+    email: data['email'],
+    firstName: data['first_name'] ?? '',
+    userId: data['user_id'] ?? '',
+  );
 } else {
   dashboard = SuperAdminDashboard(email: data['email']);
 }
@@ -299,6 +320,29 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                               ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        Center(
+                          child: GestureDetector(
+                            onTap: () => Navigator.of(context).push(
+                              MaterialPageRoute(builder: (_) => const RegisterScreen()),
+                            ),
+                            child: RichText(
+                              text: TextSpan(
+                                text: "New employee? ",
+                                style: TextStyle(color: textSecondary, fontSize: 13),
+                                children: const [
+                                  TextSpan(
+                                    text: 'Register Here',
+                                    style: TextStyle(
+                                      color: Color(0xFF00C6FF),
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
